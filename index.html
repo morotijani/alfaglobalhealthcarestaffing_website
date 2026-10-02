@@ -85,7 +85,11 @@ header.site{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;backgrou
 }
 
 /* Pages */
-.page{display:none}
+.page{display:none; animation: fadePage 0.35s ease-out forwards;}
+@keyframes fadePage {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
 .page.active{display:block}
 section{padding:84px 0}
 section.tight{padding-top:0}
