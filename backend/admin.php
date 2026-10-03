@@ -233,17 +233,29 @@ $total_subs = count($contact_subs) + count($staff_subs) + count($join_subs);
                 
                 <div id="tab-dashboard" class="tab-content active">
                     <!-- Stats Row -->
-                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-bottom: 32px;">
+                    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 32px;">
                         <div class="card" style="margin:0;">
                             <div class="card-body">
-                                <div style="color: var(--text-muted); font-size: 14px; font-weight: 600;">Total Vacancies</div>
-                                <div style="font-size: 32px; font-weight: 700; color: var(--text-main); margin-top: 8px;"><?= count($jobs) ?></div>
+                                <div style="color: var(--text-muted); font-size: 13px; font-weight: 600;">Total Vacancies</div>
+                                <div style="font-size: 28px; font-weight: 700; color: var(--text-main); margin-top: 8px;"><?= count($jobs) ?></div>
                             </div>
                         </div>
-                        <div class="card" style="margin:0;">
+                        <div class="card" style="margin:0; cursor:pointer;" onclick="showTab('contact')">
                             <div class="card-body">
-                                <div style="color: var(--text-muted); font-size: 14px; font-weight: 600;">Form Submissions</div>
-                                <div style="font-size: 32px; font-weight: 700; color: var(--text-main); margin-top: 8px;"><?= $total_subs ?></div>
+                                <div style="color: var(--text-muted); font-size: 13px; font-weight: 600;">Contact Inbox</div>
+                                <div style="font-size: 28px; font-weight: 700; color: #1e40af; margin-top: 8px;"><?= count($contact_subs) ?></div>
+                            </div>
+                        </div>
+                        <div class="card" style="margin:0; cursor:pointer;" onclick="showTab('staff')">
+                            <div class="card-body">
+                                <div style="color: var(--text-muted); font-size: 13px; font-weight: 600;">Staffing Requests</div>
+                                <div style="font-size: 28px; font-weight: 700; color: #166534; margin-top: 8px;"><?= count($staff_subs) ?></div>
+                            </div>
+                        </div>
+                        <div class="card" style="margin:0; cursor:pointer;" onclick="showTab('join')">
+                            <div class="card-body">
+                                <div style="color: var(--text-muted); font-size: 13px; font-weight: 600;">Clinician Join</div>
+                                <div style="font-size: 28px; font-weight: 700; color: #854d0e; margin-top: 8px;"><?= count($join_subs) ?></div>
                             </div>
                         </div>
                     </div>
