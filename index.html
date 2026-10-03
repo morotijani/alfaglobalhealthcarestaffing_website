@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-<base href="/staffing/">
+    <base href="/staffing/">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <title>Alfa Global Healthcare Staffing Corporation</title>
     <link rel="icon" type="image/png" href="assets/media/favicon.png">
@@ -1650,14 +1650,14 @@
 
     <header class="site">
         <div class="wrap nav">
-            <a class="brand" href="" aria-label="Alfa Global Healthcare Staffing Corporation, home">
+            <a class="brand" href="home" aria-label="Alfa Global Healthcare Staffing Corporation, home">
                 <span class="chip"><img data-logo="mark" alt="" width="52" height="40"></span>
                 <span class="words"><span class="w1">ALFA</span><span class="w2">Global Healthcare
                         Staffing</span></span>
             </a>
             <nav aria-label="Primary">
                 <ul class="nav-links" id="navLinks">
-                    <li><a href="" data-route="home">Home</a></li>
+                    <li><a href="home" data-route="home">Home</a></li>
                     <li><a href="about" data-route="about">About</a></li>
                     <li><a href="employers" data-route="employers">Employers</a></li>
                     <li><a href="candidates" data-route="candidates">Candidates</a></li>
@@ -1896,11 +1896,14 @@
                     </div>
                     <div class="team">
                         <figure class="member" style="margin:0">
-                            <div class="ph"><svg viewBox="0 0 100 100" aria-hidden="true" fill="currentColor">
+                            <div class="ph">
+                                <img src="assets/media/team/team-1.JPG" alt="">
+                                <!-- <svg viewBox="0 0 100 100" aria-hidden="true" fill="currentColor">
                                     <circle cx="50" cy="36" r="17" />
                                     <path d="M12 100c0-22 17-38 38-38s38 16 38 38z" />
-                                </svg></div>
-                            <h3>Name Surname</h3>
+                                </svg> -->
+                            </div>
+                            <h3>Abdul Rahman Dauda</h3>
                             <p>Chief Executive Officer</p>
                         </figure>
                         <figure class="member" style="margin:0">
@@ -2404,8 +2407,8 @@
                             Significant changes will be highlighted on our website.</p>
 
                         <h2>13. Contact us</h2>
-                        <p>Alfa Global Healthcare Staffing Corporation<br>[Registered address to be
-                            added]<br>info@alfaglobalhealthcarestaffing.com</p>
+                        <p>Alfa Global Healthcare Staffing Corporation<br>121 E Arikara Ave, Bismarck, ND Apt
+                            307<br>info@alfaglobalhealthcarestaffing.com</p>
                     </div>
                 </div>
             </section>
@@ -2520,8 +2523,8 @@
                             under the law where you live.</p>
 
                         <h2>12. Contact us</h2>
-                        <p>Alfa Global Healthcare Staffing Corporation<br>[Registered address to be
-                            added]<br>info@alfaglobalhealthcarestaffing.com</p>
+                        <p>Alfa Global Healthcare Staffing Corporation<br>121 E Arikara Ave, Bismarck, ND Apt
+                            307<br>info@alfaglobalhealthcarestaffing.com</p>
                     </div>
                 </div>
             </section>
@@ -2578,7 +2581,7 @@
                         </form>
                         <div class="done" hidden>
                             <h3>Message sent</h3>
-                            <p data-donetext></p><a class="btn" href="">Back to home</a>
+                            <p data-donetext></p><a class="btn" href="home">Back to home</a>
                         </div>
                     </div>
                     <aside>
@@ -2586,8 +2589,8 @@
                             <h3>Contact details</h3>
                             <ul class="info">
                                 <li><b>Email</b>info@alfaglobalhealthcarestaffing.com</li>
-                                <li><b>Phone</b>+000 000 000 000</li>
-                                <li><b>Office</b>[Registered address to be added]</li>
+                                <li><b>Phone</b>+1 (701) 934-4903</li>
+                                <li><b>Office</b>121 E Arikara Ave, Bismarck, ND Apt 307</li>
                                 <li><b>Hours</b>Monday to Friday, with out-of-hours support for urgent cover</li>
                             </ul>
                         </div>
@@ -2616,7 +2619,7 @@
                             can
                             shortlist verified clinicians who fit your facility.</p>
                     </div>
-                    <aside><b>Urgent cover?</b>Call us on +000 000 000 000 for same-day support, then send this form so
+                    <aside><b>Urgent cover?</b>Call us on +1 (701) 934-4903 for same-day support, then send this form so
                         we have
                         the details.</aside>
                 </div>
@@ -2928,11 +2931,12 @@
                         <li><a href="request-staff">Request staff</a></li>
                         <li><a href="join">Join as a clinician</a></li>
                         <li style="margin-top:8px">info@alfaglobalhealthcarestaffing.com</li>
-                        <li>+000 000 000 000</li>
+                        <li>+1 (701) 934-4903</li>
                     </ul>
                 </div>
             </div>
-            <div class="legal">© <span id="yr"></span> Alfa Global Healthcare Staffing Corporation. All rights reserved.
+            <div class="legal">&copy; <span id="yr"></span> Alfa Global Healthcare Staffing Corporation. All rights
+                reserved.
             </div>
         </div>
     </footer>
@@ -2999,7 +3003,7 @@
                     });
                     err.classList.toggle('show', !!first);
                     if (first) { first.focus(); return; }
-                    
+
                     var btn = f.querySelector('button[type="submit"]');
                     var origText = btn.textContent;
                     btn.textContent = 'Submitting...';
@@ -3007,7 +3011,7 @@
 
                     var fd = new FormData(f);
                     var data = {};
-                    fd.forEach(function(v, k) { 
+                    fd.forEach(function (v, k) {
                         if (data[k]) {
                             if (!Array.isArray(data[k])) data[k] = [data[k]];
                             data[k].push(v);
@@ -3020,14 +3024,14 @@
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify(data)
-                    }).then(function(r) { return r.json(); }).then(function(res) {
+                    }).then(function (r) { return r.json(); }).then(function (res) {
                         var nm = (f.querySelector('[name=name]').value.trim().split(' ')[0]) || 'there', em = f.querySelector('[name=email]').value.trim();
                         done.querySelector('[data-donetext]').textContent = 'Thank you, ' + nm + '. We’ve received your details and will reply to ' + em + ' within one business day.';
                         f.hidden = true; wrap.querySelector('h2').hidden = true; done.hidden = false;
                         window.scrollTo({ top: 0, behavior: 'smooth' });
-                    }).catch(function(e) {
+                    }).catch(function (e) {
                         alert('Something went wrong. Please try again.');
-                    }).finally(function() {
+                    }).finally(function () {
                         btn.textContent = origText;
                         btn.disabled = false;
                     });
@@ -3052,17 +3056,17 @@
             /* jobs */
             var chips = document.getElementById('chips'), list = document.getElementById('jobs-list'), cur = 'All';
             list.innerHTML = '<p style="text-align:center; padding: 40px; color: #666;">Loading live vacancies...</p>';
-            
+
             fetch('backend/api.php?action=jobs')
                 .then(res => res.json())
                 .then(fetchedJobs => {
-                    if(!fetchedJobs || fetchedJobs.length === 0) {
+                    if (!fetchedJobs || fetchedJobs.length === 0) {
                         list.innerHTML = '<p style="text-align:center; padding: 40px; color: #666;">No live vacancies at the moment. Please check back later or submit your details to join our network.</p>';
                         return;
                     }
                     var jobs = fetchedJobs.map(j => ({ t: j.title, w: j.location, s: j.type, ty: j.description }));
                     var cats = ['All'].concat(Array.from(new Set(jobs.map(function (j) { return j.s }))));
-                    
+
                     function renderJobs() {
                         chips.innerHTML = '';
                         cats.forEach(function (c) { var b = document.createElement('button'); b.className = 'chip'; b.textContent = c; b.setAttribute('aria-pressed', c === cur); b.onclick = function () { cur = c; renderJobs() }; chips.appendChild(b); });
@@ -3090,7 +3094,7 @@
                 var path = location.pathname;
                 var parts = path.split('/').filter(Boolean);
                 var name = parts[parts.length - 1] || 'home';
-                if(name === 'staffing') name = 'home';
+                if (name === 'staffing') name = 'home';
                 if (!document.querySelector('[data-page="' + name + '"]')) name = 'home';
                 var navName = parent[name] || name;
                 document.querySelectorAll('.page').forEach(function (p) { p.classList.toggle('active', p.getAttribute('data-page') === name) });
@@ -3104,7 +3108,7 @@
             window.addEventListener('popstate', route);
             document.addEventListener('click', function (e) {
                 var link = e.target.closest('a');
-                if(link && link.getAttribute('href') !== null && !link.getAttribute('href').startsWith('http') && !link.getAttribute('href').startsWith('#') && !link.getAttribute('target')) {
+                if (link && link.getAttribute('href') !== null && !link.getAttribute('href').startsWith('http') && !link.getAttribute('href').startsWith('#') && !link.getAttribute('target')) {
                     e.preventDefault();
                     history.pushState(null, '', link.getAttribute('href'));
                     route();
@@ -3124,7 +3128,7 @@
         <div class="wa-wrap">
             <span class="wa-pulse"></span>
             <a class="wa-btn"
-                href="https://wa.me/000000000000?text=Hi%20Alfa%20Global%2C%20I%27d%20like%20to%20enquire%20about%20your%20healthcare%20staffing%20services."
+                href="https://wa.me/17019344903?text=Hi%20Alfa%20Global%2C%20I%27d%20like%20to%20enquire%20about%20your%20healthcare%20staffing%20services."
                 target="_blank" rel="noopener noreferrer"
                 aria-label="Chat with Alfa Global Healthcare Staffing on WhatsApp">
                 <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">
