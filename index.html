@@ -2999,10 +2999,38 @@
                     });
                     err.classList.toggle('show', !!first);
                     if (first) { first.focus(); return; }
-                    var nm = (f.querySelector('[name=name]').value.trim().split(' ')[0]) || 'there', em = f.querySelector('[name=email]').value.trim();
-                    done.querySelector('[data-donetext]').textContent = 'Thank you, ' + nm + '. We’ve received your details and will reply to ' + em + ' within one business day.';
-                    f.hidden = true; wrap.querySelector('h2').hidden = true; done.hidden = false;
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    
+                    var btn = f.querySelector('button[type="submit"]');
+                    var origText = btn.textContent;
+                    btn.textContent = 'Submitting...';
+                    btn.disabled = true;
+
+                    var fd = new FormData(f);
+                    var data = {};
+                    fd.forEach(function(v, k) { 
+                        if (data[k]) {
+                            if (!Array.isArray(data[k])) data[k] = [data[k]];
+                            data[k].push(v);
+                        } else {
+                            data[k] = v;
+                        }
+                    });
+
+                    fetch('backend/api.php?action=' + id, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(data)
+                    }).then(function(r) { return r.json(); }).then(function(res) {
+                        var nm = (f.querySelector('[name=name]').value.trim().split(' ')[0]) || 'there', em = f.querySelector('[name=email]').value.trim();
+                        done.querySelector('[data-donetext]').textContent = 'Thank you, ' + nm + '. We’ve received your details and will reply to ' + em + ' within one business day.';
+                        f.hidden = true; wrap.querySelector('h2').hidden = true; done.hidden = false;
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }).catch(function(e) {
+                        alert('Something went wrong. Please try again.');
+                    }).finally(function() {
+                        btn.textContent = origText;
+                        btn.disabled = false;
+                    });
                 });
             }
             ['contactForm', 'staffForm', 'joinForm'].forEach(wire);
@@ -3022,31 +3050,36 @@
             tH.onclick = function () { setHero('hire') }; tW.onclick = function () { setHero('work') };
 
             /* jobs */
-            var jobs = [
-                { t: 'ICU Registered Nurse', w: 'Dubai, UAE', s: 'Nursing', ty: 'Contract, 12 months' },
-                { t: 'Emergency Department Nurse', w: 'London, UK', s: 'Nursing', ty: 'Permanent' },
-                { t: 'Hospitalist Physician', w: 'Riyadh, Saudi Arabia', s: 'Physicians', ty: 'Contract, 6 months' },
-                { t: 'Diagnostic Radiographer', w: 'Toronto, Canada', s: 'Allied health', ty: 'Permanent' },
-                { t: 'Clinical Pharmacist', w: 'Nairobi, Kenya', s: 'Allied health', ty: 'Permanent' },
-                { t: 'Labour Ward Midwife', w: 'Accra, Ghana', s: 'Midwifery', ty: 'Locum' },
-                { t: 'Healthcare Assistant', w: 'Manchester, UK', s: 'Care staff', ty: 'Temporary' },
-                { t: 'Psychiatric Nurse', w: 'Sydney, Australia', s: 'Mental health', ty: 'Contract, 9 months' }
-            ];
-            var cats = ['All'].concat(Array.from(new Set(jobs.map(function (j) { return j.s }))));
             var chips = document.getElementById('chips'), list = document.getElementById('jobs-list'), cur = 'All';
-            function renderJobs() {
-                chips.innerHTML = '';
-                cats.forEach(function (c) { var b = document.createElement('button'); b.className = 'chip'; b.textContent = c; b.setAttribute('aria-pressed', c === cur); b.onclick = function () { cur = c; renderJobs() }; chips.appendChild(b); });
-                list.innerHTML = '';
-                jobs.filter(function (j) { return cur === 'All' || j.s === cur }).forEach(function (j) {
-                    var d = document.createElement('div'); d.className = 'job';
-                    d.innerHTML = '<div><h3></h3><span class="pill"></span></div><div class="where"></div><div class="meta"></div><a class="btn small ghost" href="#contact">Apply</a>';
-                    d.querySelector('h3').textContent = j.t; d.querySelector('.pill').textContent = j.s; d.querySelector('.where').textContent = j.w; d.querySelector('.meta').textContent = j.ty;
-                    d.querySelector('a').setAttribute('href', 'join'); d.querySelector('a').onclick = function () { window.__prefill = 'I’d like to apply for: ' + j.t + ' (' + j.w + ').'; };
-                    list.appendChild(d);
+            list.innerHTML = '<p style="text-align:center; padding: 40px; color: #666;">Loading live vacancies...</p>';
+            
+            fetch('backend/api.php?action=jobs')
+                .then(res => res.json())
+                .then(fetchedJobs => {
+                    if(!fetchedJobs || fetchedJobs.length === 0) {
+                        list.innerHTML = '<p style="text-align:center; padding: 40px; color: #666;">No live vacancies at the moment. Please check back later or submit your details to join our network.</p>';
+                        return;
+                    }
+                    var jobs = fetchedJobs.map(j => ({ t: j.title, w: j.location, s: j.type, ty: j.description }));
+                    var cats = ['All'].concat(Array.from(new Set(jobs.map(function (j) { return j.s }))));
+                    
+                    function renderJobs() {
+                        chips.innerHTML = '';
+                        cats.forEach(function (c) { var b = document.createElement('button'); b.className = 'chip'; b.textContent = c; b.setAttribute('aria-pressed', c === cur); b.onclick = function () { cur = c; renderJobs() }; chips.appendChild(b); });
+                        list.innerHTML = '';
+                        jobs.filter(function (j) { return cur === 'All' || j.s === cur }).forEach(function (j) {
+                            var d = document.createElement('div'); d.className = 'job';
+                            d.innerHTML = '<div><h3></h3><span class="pill"></span></div><div class="where"></div><div class="meta"></div><a class="btn small ghost" href="#contact">Apply</a>';
+                            d.querySelector('h3').textContent = j.t; d.querySelector('.pill').textContent = j.s; d.querySelector('.where').textContent = j.w; d.querySelector('.meta').textContent = j.ty;
+                            d.querySelector('a').setAttribute('href', 'join'); d.querySelector('a').onclick = function () { window.__prefill = 'I’d like to apply for: ' + j.t + ' (' + j.w + ').'; };
+                            list.appendChild(d);
+                        });
+                    }
+                    renderJobs();
+                })
+                .catch(err => {
+                    list.innerHTML = '<p style="text-align:center; padding: 40px; color: #d32f2f;">Failed to load job listings. Please try again later.</p>';
                 });
-            }
-            renderJobs();
 
             /* router */
             var menuBtn = document.getElementById('menuBtn'), navLinks = document.getElementById('navLinks');
