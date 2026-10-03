@@ -134,6 +134,7 @@ $total_subs = count($contact_subs) + count($staff_subs) + count($join_subs);
         .sidebar-footer { padding: 20px 24px; border-top: 1px solid var(--border); }
         .logout { color: var(--danger); text-decoration: none; font-weight: 600; display: flex; align-items: center; gap: 8px; font-size: 14px;}
         .logout:hover { color: var(--danger-hover); }
+        .logout svg { width: 20px; height: 20px; }
         
         /* Main Content */
         .main-content { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
@@ -373,7 +374,7 @@ $total_subs = count($contact_subs) + count($staff_subs) + count($join_subs);
                                 <tr>
                                     <td style="color: var(--text-muted); font-size: 13px;"><?= date('M j, Y H:i', strtotime($sub['created_at'])) ?></td>
                                     <td><strong><?= htmlspecialchars($sub['org']) ?></strong><br><span style="color: var(--text-muted); font-size: 13px;"><?= htmlspecialchars($sub['ftype']) ?></span></td>
-                                    <td><?= htmlspecialchars($sub['name']) ?><br><span style="color: var(--text-muted); font-size: 13px;"><?= htmlspecialchars($sub['title']) ?></span><br><a href="mailto:<?= htmlspecialchars($sub['email']) ?>" style="font-size:13px; color:var(--primary); text-decoration:none;"><?= htmlspecialchars($sub['email']) ?></a></td>
+                                    <td><?= htmlspecialchars($sub['name']) ?><br><span style="color: var(--text-muted); font-size: 13px;"><?= htmlspecialchars($sub['title']) ?></span><br><a href="mailto:<?= htmlspecialchars($sub['email']) ?>" style="font-size:13px; color:var(--primary); text-decoration:none;"><?= htmlspecialchars($sub['email']) ?></a><br><span style="color: var(--text-muted); font-size: 13px;"><?= htmlspecialchars($sub['phone']) ?></span></td>
                                     <td><?= htmlspecialchars($sub['loc']) ?></td>
                                     <td><span class="badge badge-staff"><?= htmlspecialchars($sub['role']) ?></span><br><span style="color: var(--text-muted); font-size: 13px;">Count: <?= htmlspecialchars($sub['count']) ?> (<?= htmlspecialchars($sub['ctype']) ?>)<br>Start: <?= htmlspecialchars($sub['start']) ?></span></td>
                                     <td style="min-width: 200px; line-height: 1.5; color: var(--text-muted); font-size: 13px;"><?= nl2br(htmlspecialchars($sub['message'])) ?></td>
