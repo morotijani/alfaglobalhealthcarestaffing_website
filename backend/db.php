@@ -73,39 +73,7 @@ try {
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     )");
 
-    // Insert sample jobs if table is empty
-    $stmt = $pdo->query("SELECT COUNT(*) FROM jobs");
-    if ($stmt->fetchColumn() == 0) {
-        $pdo->exec("INSERT INTO jobs (title, location, type, description) VALUES 
-            ('Registered Nurse (RN) - Med/Surg', 'New York, NY', 'Full-time', 'Looking for an experienced RN for a busy Med/Surg unit.'),
-            ('Travel ICU Nurse', 'Los Angeles, CA', 'Contract (13 weeks)', 'High-paying travel assignment for ICU experienced RNs.'),
-            ('Certified Nursing Assistant (CNA)', 'Chicago, IL', 'Part-time', 'Flexible shifts available in long-term care facilities.')
-        ");
-    }
 
-    // Insert sample contacts if empty
-    if ($pdo->query("SELECT COUNT(*) FROM contact_submissions")->fetchColumn() == 0) {
-        $pdo->exec("INSERT INTO contact_submissions (name, email, phone, topic, message) VALUES 
-            ('John Doe', 'john.doe@example.com', '+1 (555) 123-4567', 'General Inquiry', 'I would like to know more about your international staffing capabilities and how long the process typically takes.'),
-            ('Jane Smith', 'jane.smith@example.com', '+44 20 7123 4567', 'Partnership', 'Can we discuss a potential partnership between our organizations for placing medical professionals in the UK?')
-        ");
-    }
-
-    // Insert sample staffing requests if empty
-    if ($pdo->query("SELECT COUNT(*) FROM staff_submissions")->fetchColumn() == 0) {
-        $pdo->exec("INSERT INTO staff_submissions (org, ftype, name, title, email, phone, loc, role, count, ctype, start, message) VALUES 
-            ('City General Hospital', 'Hospital', 'Dr. Alice', 'HR Director', 'alice@citygen.example.com', '555-0101', 'New York, NY', 'Registered Nurse (RN)', '5-10', 'Contract', 'Next month', 'We are urgently looking for experienced RNs for our intensive care unit to cover a seasonal shortage.'),
-            ('Sunset Care Home', 'Care Home', 'Bob Miller', 'Facility Manager', 'bob@sunsetcare.example.com', '555-0202', 'Miami, FL', 'Care Assistant', '1-4', 'Permanent', 'Immediately', 'Looking for caring and dedicated staff for elderly residents. Immediate start required.')
-        ");
-    }
-
-    // Insert sample join applications if empty
-    if ($pdo->query("SELECT COUNT(*) FROM join_submissions")->fetchColumn() == 0) {
-        $pdo->exec("INSERT INTO join_submissions (name, email, phone, country, prof, specialty, exp, licence, regions, ctype, avail, message) VALUES 
-            ('Emily Chen', 'emily.chen@example.com', '555-0303', 'Canada', 'Nurse', 'Pediatrics', '3-5 years', 'Registered, Active', 'North America, UK', 'Permanent', 'In 3 months', 'I am relocating and looking for pediatric nursing opportunities. My current licence is in good standing.'),
-            ('Michael Brown', 'michael.b@example.com', '555-0404', 'UK', 'Doctor', 'Cardiology', '10+ years', 'GMC Registered', 'Middle East', 'Contract', 'Immediately', 'Looking for short-term contracts in the Middle East. I have previous experience working in Dubai.')
-        ");
-    }
 
 } catch (\PDOException $e) {
     die("Database connection failed: " . $e->getMessage() . " - Please make sure MySQL is running in XAMPP.");
